@@ -70,6 +70,7 @@ function App() {
   };
 
   const handleClearLogs = () => {
+    console.log("Clearing logs and file name");
     setLogs([]);
     setFileName("");
     setFilters({
@@ -78,6 +79,7 @@ function App() {
       message: "",
     });
     clearStoredData();
+    console.log("After clearing, fileName state:", ""); // Empty string after clearing
   };
 
   return (

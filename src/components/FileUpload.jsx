@@ -8,7 +8,12 @@ const FileUpload = ({ onLogsLoaded, setIsLoading, initialFileName }) => {
 
   // Update fileName when initialFileName changes
   useEffect(() => {
-    if (initialFileName) {
+    console.log("initialFileName changed:", initialFileName);
+    // Explicitly check for empty string to ensure we clear the fileName
+    if (initialFileName === "") {
+      console.log("Clearing fileName state in FileUpload component");
+      setFileName("");
+    } else if (initialFileName) {
       setFileName(initialFileName);
     }
   }, [initialFileName]);
@@ -166,7 +171,7 @@ const FileUpload = ({ onLogsLoaded, setIsLoading, initialFileName }) => {
           </p>
         </div>
 
-        {fileName && (
+        {fileName && fileName.trim() !== "" ? (
           <div className="mt-4 py-3 px-4 bg-green-50 rounded-lg border border-green-200 inline-flex items-center">
             <svg
               className="h-3.5 w-3.5 text-green-500 mr-2 flex-shrink-0"
@@ -185,7 +190,7 @@ const FileUpload = ({ onLogsLoaded, setIsLoading, initialFileName }) => {
               {fileName}
             </span>
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   );
