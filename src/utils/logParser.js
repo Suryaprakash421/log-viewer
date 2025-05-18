@@ -105,13 +105,23 @@ export const filterLogs = (logs, filters) => {
         return false;
       }
 
-      // Filter by tag if specified (partial match)
-      if (
-        tag &&
-        log.tag &&
-        !log.tag.toLowerCase().includes(tag.toLowerCase())
-      ) {
-        return false;
+      // Filter by tag if specified (multiple comma-separated tags supported)
+      if (tag && log.tag) {
+        // Split the tag filter by commas and trim whitespace
+        const tagFilters = tag
+          .split(",")
+          .map((t) => t.trim().toLowerCase())
+          .filter((t) => t !== "");
+
+        // If there are tag filters and none of them match the log tag, filter out this log
+        if (
+          tagFilters.length > 0 &&
+          !tagFilters.some((tagFilter) =>
+            log.tag.toLowerCase().includes(tagFilter)
+          )
+        ) {
+          return false;
+        }
       }
 
       // Filter by message if specified (partial match)

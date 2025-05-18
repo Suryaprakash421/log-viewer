@@ -1,15 +1,62 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import FileUpload from "./components/FileUpload";
 import LogViewer from "./components/LogViewer";
 import TailwindTest from "./components/TailwindTest";
+import {
+  saveLogs,
+  loadLogs,
+  saveFilters,
+  loadFilters,
+  clearStoredData,
+} from "./utils/localStorage";
 
 function App() {
   const [logs, setLogs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [filters, setFilters] = useState({
+    level: "",
+    tag: "",
+    message: "",
+  });
+
+  // Load logs and filters from localStorage on component mount
+  useEffect(() => {
+    const savedLogs = loadLogs();
+    if (savedLogs && savedLogs.length > 0) {
+      setLogs(savedLogs);
+    }
+
+    const savedFilters = loadFilters();
+    if (savedFilters) {
+      setFilters(savedFilters);
+    }
+  }, []);
+
+  // Save logs to localStorage when they change
+  useEffect(() => {
+    if (logs.length > 0) {
+      saveLogs(logs);
+    }
+  }, [logs]);
+
+  // Save filters to localStorage when they change
+  useEffect(() => {
+    saveFilters(filters);
+  }, [filters]);
 
   const handleLogsLoaded = (parsedLogs) => {
     setLogs(parsedLogs);
+  };
+
+  const handleClearLogs = () => {
+    setLogs([]);
+    setFilters({
+      level: "",
+      tag: "",
+      message: "",
+    });
+    clearStoredData();
   };
 
   return (
@@ -69,7 +116,30 @@ function App() {
             <p className="text-gray-600 font-medium">Processing log file...</p>
           </div>
         ) : logs.length > 0 ? (
-          <LogViewer logs={logs} />
+          <div>
+            <div className="flex justify-end mb-4">
+              <button
+                onClick={handleClearLogs}
+                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md flex items-center text-sm font-medium transition-colors duration-150"
+              >
+                <svg
+                  className="h-4 w-4 mr-1.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
+                </svg>
+                Clear Logs
+              </button>
+            </div>
+            <LogViewer logs={logs} filters={filters} setFilters={setFilters} />
+          </div>
         ) : (
           <div className="mt-6 text-center p-8 bg-white rounded-lg shadow-sm border border-gray-200">
             <svg

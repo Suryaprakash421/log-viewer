@@ -1,15 +1,9 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import SearchFilter from "./SearchFilter";
 import LogList from "./LogList";
 import { filterLogs } from "../utils/logParser";
 
-const LogViewer = ({ logs }) => {
-  const [filters, setFilters] = useState({
-    level: "",
-    tag: "",
-    message: "",
-  });
-
+const LogViewer = ({ logs, filters, setFilters }) => {
   // Apply filters to logs
   const filteredLogs = useMemo(() => {
     return filterLogs(logs, filters);
