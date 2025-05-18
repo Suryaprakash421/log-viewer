@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import LogEntry from "./LogEntry";
 
-const LogList = ({ logs }) => {
+const LogList = ({ logs, sortOrder, setSortOrder }) => {
   const [displayedLogs, setDisplayedLogs] = useState([]);
   const [page, setPage] = useState(1);
   const logsPerPage = 100;
@@ -86,23 +86,72 @@ const LogList = ({ logs }) => {
   return (
     <div className="relative">
       <div className="bg-white p-4 rounded-lg shadow-sm mb-4 border border-gray-200">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-gray-800 flex items-center">
-            <svg
-              className="h-3.5 w-3.5 mr-1.5 text-blue-600"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 10h16M4 14h16M4 18h16"
-              />
-            </svg>
-            Log Entries
-          </h2>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+          <div className="flex items-center">
+            <h2 className="text-xl font-semibold text-gray-800 flex items-center">
+              <svg
+                className="h-3.5 w-3.5 mr-1.5 text-blue-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 10h16M4 14h16M4 18h16"
+                />
+              </svg>
+              Log Entries
+            </h2>
+
+            {/* Sort Order Toggle */}
+            <div className="flex items-center ml-4 bg-white px-3 py-1 rounded-lg shadow-sm border border-gray-200">
+              <span className="text-sm text-gray-600 mr-2">Sort:</span>
+              <button
+                onClick={() =>
+                  setSortOrder(sortOrder === "asc" ? "desc" : "asc")
+                }
+                className="flex items-center rounded text-blue-700 text-sm font-medium transition-colors duration-150"
+              >
+                {sortOrder === "asc" ? (
+                  <>
+                    <svg
+                      className="h-4 w-4 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"
+                      />
+                    </svg>
+                    Oldest First
+                  </>
+                ) : (
+                  <>
+                    <svg
+                      className="h-4 w-4 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"
+                      />
+                    </svg>
+                    Newest First
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
 
           <div className="text-sm text-gray-500">
             Showing {displayedLogs.length} of {logs.length} logs

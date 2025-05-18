@@ -7,19 +7,22 @@ import {
   loadLogs,
   saveFilters,
   loadFilters,
+  saveSortOrder,
+  loadSortOrder,
   clearStoredData,
 } from "./utils/localStorage";
 
 function App() {
   const [logs, setLogs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [sortOrder, setSortOrder] = useState("desc"); // Default to descending order
   const [filters, setFilters] = useState({
     level: "",
     tag: "",
     message: "",
   });
 
-  // Load logs and filters from localStorage on component mount
+  // Load logs, filters, and sort order from localStorage on component mount
   useEffect(() => {
     const savedLogs = loadLogs();
     if (savedLogs && savedLogs.length > 0) {
@@ -30,6 +33,9 @@ function App() {
     if (savedFilters) {
       setFilters(savedFilters);
     }
+
+    const savedSortOrder = loadSortOrder();
+    setSortOrder(savedSortOrder);
   }, []);
 
   // Save logs to localStorage when they change
@@ -43,6 +49,11 @@ function App() {
   useEffect(() => {
     saveFilters(filters);
   }, [filters]);
+
+  // Save sort order to localStorage when it changes
+  useEffect(() => {
+    saveSortOrder(sortOrder);
+  }, [sortOrder]);
 
   const handleLogsLoaded = (parsedLogs) => {
     setLogs(parsedLogs);
@@ -125,7 +136,13 @@ function App() {
                 Clear Logs
               </button>
             </div>
-            <LogViewer logs={logs} filters={filters} setFilters={setFilters} />
+            <LogViewer
+              logs={logs}
+              filters={filters}
+              setFilters={setFilters}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
+            />
           </div>
         ) : (
           <div className="mt-6 text-center p-8 bg-white rounded-lg shadow-sm border border-gray-200">

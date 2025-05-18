@@ -3,11 +3,11 @@ import SearchFilter from "./SearchFilter";
 import LogList from "./LogList";
 import { filterLogs } from "../utils/logParser";
 
-const LogViewer = ({ logs, filters, setFilters }) => {
+const LogViewer = ({ logs, filters, setFilters, sortOrder, setSortOrder }) => {
   // Apply filters to logs
   const filteredLogs = useMemo(() => {
-    return filterLogs(logs, filters);
-  }, [logs, filters]);
+    return filterLogs(logs, filters, sortOrder);
+  }, [logs, filters, sortOrder]);
 
   // Calculate statistics
   const stats = useMemo(() => {
@@ -168,10 +168,16 @@ const LogViewer = ({ logs, filters, setFilters }) => {
       </div>
 
       {/* Search and Filter */}
-      <SearchFilter filters={filters} setFilters={setFilters} />
+      <div className="mb-4">
+        <SearchFilter filters={filters} setFilters={setFilters} />
+      </div>
 
       {/* Log List */}
-      <LogList logs={filteredLogs} />
+      <LogList
+        logs={filteredLogs}
+        sortOrder={sortOrder}
+        setSortOrder={setSortOrder}
+      />
     </div>
   );
 };

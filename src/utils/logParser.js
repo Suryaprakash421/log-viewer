@@ -93,9 +93,10 @@ function getLevelCode(level) {
  * Filter logs based on search criteria
  * @param {Array} logs - Array of log entries
  * @param {Object} filters - Filter criteria
+ * @param {string} sortOrder - Sort order ('asc' or 'desc')
  * @returns {Array} - Filtered log entries
  */
-export const filterLogs = (logs, filters) => {
+export const filterLogs = (logs, filters, sortOrder = "desc") => {
   const { level, tag, message } = filters;
 
   return logs
@@ -136,8 +137,15 @@ export const filterLogs = (logs, filters) => {
       return true;
     })
     .sort((a, b) => {
-      // Sort by timestamp in ascending order
+      // Sort by timestamp based on sortOrder
       if (!a.timestamp || !b.timestamp) return 0;
-      return new Date(a.timestamp) - new Date(b.timestamp);
+
+      if (sortOrder === "asc") {
+        // Ascending order (oldest first)
+        return new Date(a.timestamp) - new Date(b.timestamp);
+      } else {
+        // Descending order (newest first)
+        return new Date(b.timestamp) - new Date(a.timestamp);
+      }
     });
 };

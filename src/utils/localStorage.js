@@ -4,6 +4,7 @@
 const STORAGE_KEYS = {
   LOGS: "logviewer_logs",
   FILTERS: "logviewer_filters",
+  SORT_ORDER: "logviewer_sort_order",
 };
 
 /**
@@ -103,12 +104,39 @@ export const loadFilters = () => {
 };
 
 /**
+ * Save sort order preference to storage
+ * @param {string} sortOrder - Sort order preference ('asc' or 'desc')
+ */
+export const saveSortOrder = (sortOrder) => {
+  try {
+    storage.setItem(STORAGE_KEYS.SORT_ORDER, sortOrder);
+  } catch (error) {
+    console.error("Error saving sort order to storage:", error);
+  }
+};
+
+/**
+ * Load sort order preference from storage
+ * @returns {string} - Sort order preference ('asc' or 'desc'), defaults to 'desc' if not found
+ */
+export const loadSortOrder = () => {
+  try {
+    const savedSortOrder = storage.getItem(STORAGE_KEYS.SORT_ORDER);
+    return savedSortOrder || "desc"; // Default to descending order
+  } catch (error) {
+    console.error("Error loading sort order from storage:", error);
+    return "desc"; // Default to descending order
+  }
+};
+
+/**
  * Clear all stored data from storage
  */
 export const clearStoredData = () => {
   try {
     storage.removeItem(STORAGE_KEYS.LOGS);
     storage.removeItem(STORAGE_KEYS.FILTERS);
+    storage.removeItem(STORAGE_KEYS.SORT_ORDER);
   } catch (error) {
     console.error("Error clearing data from storage:", error);
   }
