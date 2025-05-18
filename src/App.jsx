@@ -9,12 +9,15 @@ import {
   loadFilters,
   saveSortOrder,
   loadSortOrder,
+  saveFileName,
+  loadFileName,
   clearStoredData,
 } from "./utils/localStorage";
 
 function App() {
   const [logs, setLogs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [fileName, setFileName] = useState("");
   const [sortOrder, setSortOrder] = useState("desc"); // Default to descending order
   const [filters, setFilters] = useState({
     level: [],
@@ -22,7 +25,7 @@ function App() {
     message: "",
   });
 
-  // Load logs, filters, and sort order from localStorage on component mount
+  // Load logs, filters, sort order, and file name from localStorage on component mount
   useEffect(() => {
     const savedLogs = loadLogs();
     if (savedLogs && savedLogs.length > 0) {
@@ -36,6 +39,11 @@ function App() {
 
     const savedSortOrder = loadSortOrder();
     setSortOrder(savedSortOrder);
+
+    const savedFileName = loadFileName();
+    if (savedFileName) {
+      setFileName(savedFileName);
+    }
   }, []);
 
   // Save logs to localStorage when they change
@@ -55,12 +63,15 @@ function App() {
     saveSortOrder(sortOrder);
   }, [sortOrder]);
 
-  const handleLogsLoaded = (parsedLogs) => {
+  const handleLogsLoaded = (parsedLogs, uploadedFileName) => {
     setLogs(parsedLogs);
+    setFileName(uploadedFileName);
+    saveFileName(uploadedFileName);
   };
 
   const handleClearLogs = () => {
     setLogs([]);
+    setFileName("");
     setFilters({
       level: [],
       tag: "",
@@ -105,6 +116,7 @@ function App() {
           <FileUpload
             onLogsLoaded={handleLogsLoaded}
             setIsLoading={setIsLoading}
+            initialFileName={fileName}
           />
         </div>
 

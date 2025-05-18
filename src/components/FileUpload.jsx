@@ -1,10 +1,17 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { parseLogFile } from "../utils/logParser";
 
-const FileUpload = ({ onLogsLoaded, setIsLoading }) => {
+const FileUpload = ({ onLogsLoaded, setIsLoading, initialFileName }) => {
   const [dragActive, setDragActive] = useState(false);
-  const [fileName, setFileName] = useState("");
+  const [fileName, setFileName] = useState(initialFileName || "");
   const fileInputRef = useRef(null);
+
+  // Update fileName when initialFileName changes
+  useEffect(() => {
+    if (initialFileName) {
+      setFileName(initialFileName);
+    }
+  }, [initialFileName]);
 
   const handleDrag = (e) => {
     e.preventDefault();
@@ -49,7 +56,7 @@ const FileUpload = ({ onLogsLoaded, setIsLoading }) => {
       try {
         const content = e.target.result;
         const parsedLogs = parseLogFile(content);
-        onLogsLoaded(parsedLogs);
+        onLogsLoaded(parsedLogs, file.name);
       } catch (error) {
         console.error("Error parsing log file:", error);
         alert("Error parsing log file. Please check the file format.");

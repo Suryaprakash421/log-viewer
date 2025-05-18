@@ -5,6 +5,7 @@ const STORAGE_KEYS = {
   LOGS: "logviewer_logs",
   FILTERS: "logviewer_filters",
   SORT_ORDER: "logviewer_sort_order",
+  FILE_NAME: "logviewer_file_name",
 };
 
 /**
@@ -130,6 +131,31 @@ export const loadSortOrder = () => {
 };
 
 /**
+ * Save file name to storage
+ * @param {string} fileName - Name of the uploaded file
+ */
+export const saveFileName = (fileName) => {
+  try {
+    storage.setItem(STORAGE_KEYS.FILE_NAME, fileName);
+  } catch (error) {
+    console.error("Error saving file name to storage:", error);
+  }
+};
+
+/**
+ * Load file name from storage
+ * @returns {string|null} - File name or null if not found
+ */
+export const loadFileName = () => {
+  try {
+    return storage.getItem(STORAGE_KEYS.FILE_NAME);
+  } catch (error) {
+    console.error("Error loading file name from storage:", error);
+    return null;
+  }
+};
+
+/**
  * Clear all stored data from storage
  */
 export const clearStoredData = () => {
@@ -137,6 +163,7 @@ export const clearStoredData = () => {
     storage.removeItem(STORAGE_KEYS.LOGS);
     storage.removeItem(STORAGE_KEYS.FILTERS);
     storage.removeItem(STORAGE_KEYS.SORT_ORDER);
+    storage.removeItem(STORAGE_KEYS.FILE_NAME);
   } catch (error) {
     console.error("Error clearing data from storage:", error);
   }
