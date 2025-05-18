@@ -1,13 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/log-icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <meta
+      name="description"
+      content="Log Viewer - Analyze and filter application logs"
+    />
+    <meta name="theme-color" content="#1e40af" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <link rel="manifest" href="/manifest.json" />
+    <title>Log Viewer</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <noscript>
+      <div
+        style="
+          padding: 2rem;
+          text-align: center;
+          font-family: system-ui, sans-serif;
+        "
+      >
+        <h1>JavaScript Required</h1>
+        <p>
+          This application requires JavaScript to run. Please enable JavaScript
+          in your browser settings.
+        </p>
+      </div>
+    </noscript>
   </body>
 </html>

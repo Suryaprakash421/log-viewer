@@ -1,0 +1,16 @@
+{
+  "name": "Log Viewer",
+  "short_name": "LogViewer",
+  "description": "Analyze and filter application logs",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e40af",
+  "icons": [
+    {
+      "src": "/log-icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
