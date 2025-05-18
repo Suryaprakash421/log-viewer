@@ -35,7 +35,7 @@ const LogViewer = ({ logs, filters, setFilters, sortOrder, setSortOrder }) => {
     <div className="mt-6">
       {/* Stats Bar */}
       <div className="bg-white p-4 rounded-lg shadow-sm mb-4 border border-gray-200">
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
             <div className="bg-blue-100 p-1.5 rounded-lg mr-2">
               <svg
@@ -75,9 +75,10 @@ const LogViewer = ({ logs, filters, setFilters, sortOrder, setSortOrder }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
-          <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-3 rounded border border-gray-200 text-center transition-all hover:shadow-sm group hover:border-gray-300">
-            <div className="text-xs uppercase tracking-wider text-gray-500 mb-1 group-hover:text-gray-700">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          {/* Total Logs */}
+          <div className="bg-white p-3 rounded border border-gray-200 text-center">
+            <div className="text-xs uppercase tracking-wider text-gray-500 mb-1">
               Total Logs
             </div>
             <div className="text-2xl font-bold text-gray-800">
@@ -85,24 +86,26 @@ const LogViewer = ({ logs, filters, setFilters, sortOrder, setSortOrder }) => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-3 rounded border border-gray-200 text-center transition-all hover:shadow-sm group hover:border-gray-300">
-            <div className="text-xs uppercase tracking-wider text-gray-500 mb-1 group-hover:text-gray-700">
+          {/* Filtered */}
+          <div className="bg-white p-3 rounded border border-gray-200 text-center">
+            <div className="text-xs uppercase tracking-wider text-gray-500 mb-1">
               Filtered
             </div>
             <div className="text-2xl font-bold text-gray-800">
               {stats.filtered.toLocaleString()}
             </div>
-            <div className="text-xs text-gray-500 mt-1 group-hover:text-gray-700">
+            <div className="text-xs text-gray-500 mt-1">
               {Math.round((stats.filtered / stats.total) * 100) || 0}% of total
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-green-50 to-green-100/50 p-3 rounded border border-green-200 text-center transition-all hover:shadow-sm group hover:border-green-300">
-            <div className="text-xs uppercase tracking-wider text-green-700 mb-1 group-hover:text-green-800">
+          {/* Debug */}
+          <div className="bg-green-50 p-3 rounded border border-green-200 text-center">
+            <div className="text-xs uppercase tracking-wider text-green-700 mb-1">
               Debug (D)
             </div>
             <div className="flex items-center justify-center">
-              <div className="text-2xl font-bold text-green-600 group-hover:text-green-700">
+              <div className="text-2xl font-bold text-green-600">
                 {(stats.levelCounts["D"] || 0).toLocaleString()}
               </div>
               <div className="ml-2 bg-green-200 text-green-800 text-xs px-1.5 py-0.5 rounded-full">
@@ -114,12 +117,13 @@ const LogViewer = ({ logs, filters, setFilters, sortOrder, setSortOrder }) => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 p-3 rounded border border-blue-200 text-center transition-all hover:shadow-sm group hover:border-blue-300">
-            <div className="text-xs uppercase tracking-wider text-blue-700 mb-1 group-hover:text-blue-800">
+          {/* Info */}
+          <div className="bg-blue-50 p-3 rounded border border-blue-200 text-center">
+            <div className="text-xs uppercase tracking-wider text-blue-700 mb-1">
               Info (I)
             </div>
             <div className="flex items-center justify-center">
-              <div className="text-2xl font-bold text-blue-600 group-hover:text-blue-700">
+              <div className="text-2xl font-bold text-blue-600">
                 {(stats.levelCounts["I"] || 0).toLocaleString()}
               </div>
               <div className="ml-2 bg-blue-200 text-blue-800 text-xs px-1.5 py-0.5 rounded-full">
@@ -131,12 +135,13 @@ const LogViewer = ({ logs, filters, setFilters, sortOrder, setSortOrder }) => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-yellow-50 to-yellow-100/50 p-3 rounded border border-yellow-200 text-center transition-all hover:shadow-sm group hover:border-yellow-300">
-            <div className="text-xs uppercase tracking-wider text-yellow-700 mb-1 group-hover:text-yellow-800">
+          {/* Warnings */}
+          <div className="bg-yellow-50 p-3 rounded border border-yellow-200 text-center">
+            <div className="text-xs uppercase tracking-wider text-yellow-700 mb-1">
               Warnings (W)
             </div>
             <div className="flex items-center justify-center">
-              <div className="text-2xl font-bold text-yellow-600 group-hover:text-yellow-700">
+              <div className="text-2xl font-bold text-yellow-600">
                 {(stats.levelCounts["W"] || 0).toLocaleString()}
               </div>
               <div className="ml-2 bg-yellow-200 text-yellow-800 text-xs px-1.5 py-0.5 rounded-full">
@@ -148,12 +153,13 @@ const LogViewer = ({ logs, filters, setFilters, sortOrder, setSortOrder }) => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-red-50 to-red-100/50 p-3 rounded border border-red-200 text-center transition-all hover:shadow-sm group hover:border-red-300">
-            <div className="text-xs uppercase tracking-wider text-red-700 mb-1 group-hover:text-red-800">
+          {/* Errors */}
+          <div className="bg-red-50 p-3 rounded border border-red-200 text-center">
+            <div className="text-xs uppercase tracking-wider text-red-700 mb-1">
               Errors (E)
             </div>
             <div className="flex items-center justify-center">
-              <div className="text-2xl font-bold text-red-600 group-hover:text-red-700">
+              <div className="text-2xl font-bold text-red-600">
                 {(stats.levelCounts["E"] || 0).toLocaleString()}
               </div>
               <div className="ml-2 bg-red-200 text-red-800 text-xs px-1.5 py-0.5 rounded-full">

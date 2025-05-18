@@ -135,7 +135,7 @@ const SearchFilter = ({ filters, setFilters }) => {
             name="tag"
             value={filters.tag}
             onChange={handleChange}
-            placeholder="Filter by multiple tags (e.g. AlbumContactCheck, HomeAlbumAdapter)"
+            placeholder="Filter by multiple tags"
             className="w-full rounded border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-2 py-1.5 bg-white text-sm"
           />
           <p className="mt-1 text-xs text-gray-500">
@@ -170,7 +170,7 @@ const SearchFilter = ({ filters, setFilters }) => {
             name="message"
             value={filters.message}
             onChange={handleChange}
-            placeholder="Filter by message content (e.g. contactNumber, namedFacesData)"
+            placeholder="Filter by message content"
             className="w-full rounded border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-2 py-1.5 bg-white text-sm"
           />
         </div>
