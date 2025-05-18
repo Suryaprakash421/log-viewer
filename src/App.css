@@ -1,0 +1,5 @@
+/* Custom styles beyond Tailwind */
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
