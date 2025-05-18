@@ -97,15 +97,15 @@ const LogViewer = ({ logs, filters, setFilters, sortOrder, setSortOrder }) => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 p-3 rounded border border-gray-300 text-center transition-all hover:shadow-sm group hover:border-gray-400">
-            <div className="text-xs uppercase tracking-wider text-gray-700 mb-1 group-hover:text-gray-800">
+          <div className="bg-gradient-to-br from-green-50 to-green-100/50 p-3 rounded border border-green-200 text-center transition-all hover:shadow-sm group hover:border-green-300">
+            <div className="text-xs uppercase tracking-wider text-green-700 mb-1 group-hover:text-green-800">
               Debug (D)
             </div>
             <div className="flex items-center justify-center">
-              <div className="text-2xl font-bold text-gray-600 group-hover:text-gray-700">
+              <div className="text-2xl font-bold text-green-600 group-hover:text-green-700">
                 {(stats.levelCounts["D"] || 0).toLocaleString()}
               </div>
-              <div className="ml-2 bg-gray-200 text-gray-800 text-xs px-1.5 py-0.5 rounded-full">
+              <div className="ml-2 bg-green-200 text-green-800 text-xs px-1.5 py-0.5 rounded-full">
                 {Math.round(
                   ((stats.levelCounts["D"] || 0) / stats.total) * 100
                 ) || 0}

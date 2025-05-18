@@ -11,7 +11,7 @@ const LogEntry = ({ log }) => {
       case "I": // Info
         return "bg-blue-50 border-blue-200";
       case "D": // Debug
-        return "bg-gray-50 border-gray-200";
+        return "bg-green-50 border-green-200";
       default:
         return "bg-gray-50 border-gray-200";
     }
@@ -27,7 +27,7 @@ const LogEntry = ({ log }) => {
       case "I": // Info
         return "text-blue-800";
       case "D": // Debug
-        return "text-gray-800";
+        return "text-green-800";
       default:
         return "text-gray-800";
     }
@@ -43,7 +43,7 @@ const LogEntry = ({ log }) => {
       case "I": // Info
         return "bg-blue-200 text-blue-800";
       case "D": // Debug
-        return "bg-gray-200 text-gray-800";
+        return "bg-green-200 text-green-800";
       default:
         return "bg-gray-200 text-gray-800";
     }
