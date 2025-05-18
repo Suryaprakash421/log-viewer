@@ -60,6 +60,8 @@ const LogEntry = ({ log }) => {
         return "INFO";
       case "D":
         return "DEBUG";
+      case "":
+        return ""; // Don't show anything if level is empty
       default:
         return log.level;
     }

@@ -132,7 +132,7 @@ const SearchFilter = ({ filters, setFilters }) => {
             name="tag"
             value={filters.tag}
             onChange={handleChange}
-            placeholder="Filter by tag (e.g. NetworkManager)"
+            placeholder="Filter by tag (e.g. AlbumContactCheck, HomeAlbumAdapter)"
             className="w-full rounded border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-2 py-1.5 bg-white text-sm"
           />
         </div>
@@ -164,7 +164,7 @@ const SearchFilter = ({ filters, setFilters }) => {
             name="message"
             value={filters.message}
             onChange={handleChange}
-            placeholder="Filter by message content"
+            placeholder="Filter by message content (e.g. contactNumber, namedFacesData)"
             className="w-full rounded border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-2 py-1.5 bg-white text-sm"
           />
         </div>
