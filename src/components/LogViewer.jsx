@@ -75,7 +75,7 @@ const LogViewer = ({ logs, filters, setFilters }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
           <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-3 rounded border border-gray-200 text-center transition-all hover:shadow-sm group hover:border-gray-300">
             <div className="text-xs uppercase tracking-wider text-gray-500 mb-1 group-hover:text-gray-700">
               Total Logs
@@ -94,6 +94,23 @@ const LogViewer = ({ logs, filters, setFilters }) => {
             </div>
             <div className="text-xs text-gray-500 mt-1 group-hover:text-gray-700">
               {Math.round((stats.filtered / stats.total) * 100) || 0}% of total
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 p-3 rounded border border-gray-300 text-center transition-all hover:shadow-sm group hover:border-gray-400">
+            <div className="text-xs uppercase tracking-wider text-gray-700 mb-1 group-hover:text-gray-800">
+              Debug (D)
+            </div>
+            <div className="flex items-center justify-center">
+              <div className="text-2xl font-bold text-gray-600 group-hover:text-gray-700">
+                {(stats.levelCounts["D"] || 0).toLocaleString()}
+              </div>
+              <div className="ml-2 bg-gray-200 text-gray-800 text-xs px-1.5 py-0.5 rounded-full">
+                {Math.round(
+                  ((stats.levelCounts["D"] || 0) / stats.total) * 100
+                ) || 0}
+                %
+              </div>
             </div>
           </div>
 

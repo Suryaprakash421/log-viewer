@@ -86,16 +86,6 @@ function App() {
               </p>
             </div>
           </div>
-          <div className="flex space-x-2">
-            <span className="bg-white/10 text-xs px-3 py-1.5 rounded-full backdrop-blur-sm font-medium">
-              <span className="text-blue-200">Version</span>{" "}
-              <span className="text-white">1.0</span>
-            </span>
-            <span className="bg-white/10 text-xs px-3 py-1.5 rounded-full backdrop-blur-sm font-medium">
-              <span className="text-blue-200">React</span>{" "}
-              <span className="text-white">19.1.0</span>
-            </span>
-          </div>
         </div>
       </header>
 
