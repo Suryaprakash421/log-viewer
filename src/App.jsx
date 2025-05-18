@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import FileUpload from "./components/FileUpload";
 import LogViewer from "./components/LogViewer";
-import TailwindTest from "./components/TailwindTest";
 import {
   saveLogs,
   loadLogs,
@@ -60,7 +59,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans text-gray-800">
+    <div className="min-h-screen bg-gray-50 font-sans text-gray-800 flex flex-col">
       <header className="bg-gradient-to-r from-blue-800 via-indigo-700 to-blue-800 text-white p-5 shadow-lg relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iLjA1Ij48cGF0aCBkPSJNMzYgMzRjMC0yLjIxLTEuNzktNC00LTRzLTQgMS43OS00IDQgMS43OSA0IDQgNCA0LTEuNzkgNC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-20"></div>
         <div className="container mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between relative z-10">
@@ -100,9 +99,7 @@ function App() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-4 sm:px-6">
-        <TailwindTest />
-
+      <main className="container mx-auto px-4 py-4 sm:px-6 flex-grow">
         <div className="bg-white rounded-lg shadow-sm p-4 mb-4 border border-gray-200 transition-all hover:shadow-md">
           <FileUpload
             onLogsLoaded={handleLogsLoaded}
@@ -165,7 +162,7 @@ function App() {
         )}
       </main>
 
-      <footer className="bg-gray-800 text-gray-300 py-3 mt-8">
+      <footer className="bg-gray-800 text-gray-300 py-3 mt-auto">
         <div className="container mx-auto px-4">
           <div className="flex flex-col sm:flex-row justify-between items-center">
             <div className="flex items-center mb-2 sm:mb-0">
