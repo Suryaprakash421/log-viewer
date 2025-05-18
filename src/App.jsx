@@ -17,7 +17,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [sortOrder, setSortOrder] = useState("desc"); // Default to descending order
   const [filters, setFilters] = useState({
-    level: "",
+    level: [],
     tag: "",
     message: "",
   });
@@ -62,7 +62,7 @@ function App() {
   const handleClearLogs = () => {
     setLogs([]);
     setFilters({
-      level: "",
+      level: [],
       tag: "",
       message: "",
     });

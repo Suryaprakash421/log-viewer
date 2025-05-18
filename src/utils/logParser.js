@@ -101,8 +101,8 @@ export const filterLogs = (logs, filters, sortOrder = "desc") => {
 
   return logs
     .filter((log) => {
-      // Filter by level if specified
-      if (level && log.level !== level) {
+      // Filter by level if any levels are selected
+      if (level && level.length > 0 && !level.includes(log.level)) {
         return false;
       }
 

@@ -9,9 +9,26 @@ const SearchFilter = ({ filters, setFilters }) => {
     }));
   };
 
+  const handleLevelChange = (level) => {
+    setFilters((prev) => {
+      // Check if the level is already in the array
+      const isSelected = prev.level.includes(level);
+
+      // If it's selected, remove it; otherwise, add it
+      const newLevels = isSelected
+        ? prev.level.filter((l) => l !== level)
+        : [...prev.level, level];
+
+      return {
+        ...prev,
+        level: newLevels,
+      };
+    });
+  };
+
   const clearFilters = () => {
     setFilters({
-      level: "",
+      level: [],
       tag: "",
       message: "",
     });
@@ -63,10 +80,7 @@ const SearchFilter = ({ filters, setFilters }) => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {/* Level Filter */}
         <div className="bg-gray-50 p-3 rounded border border-gray-200">
-          <label
-            htmlFor="level"
-            className="block text-sm font-medium text-gray-700 mb-2 flex items-center"
-          >
+          <div className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
             <svg
               className="h-3.5 w-3.5 mr-1 text-blue-500"
               fill="none"
@@ -81,28 +95,162 @@ const SearchFilter = ({ filters, setFilters }) => {
               />
             </svg>
             Log Level
-          </label>
-          <select
-            id="level"
-            name="level"
-            value={filters.level}
-            onChange={handleChange}
-            className="w-full rounded border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 px-2 py-1.5 bg-white text-sm"
-          >
-            <option value="">All Levels</option>
-            <option value="I" className="text-blue-700">
-              Info (I)
-            </option>
-            <option value="D" className="text-gray-700">
-              Debug (D)
-            </option>
-            <option value="W" className="text-yellow-700">
-              Warning (W)
-            </option>
-            <option value="E" className="text-red-700">
-              Error (E)
-            </option>
-          </select>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {/* Debug Checkbox */}
+            <button
+              type="button"
+              onClick={() => handleLevelChange("D")}
+              className={`flex items-center px-2 py-1 rounded cursor-pointer border focus:outline-none focus:ring-1 focus:ring-green-500 ${
+                filters.level.includes("D")
+                  ? "bg-green-100 border-green-300 text-green-800"
+                  : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              <svg
+                className={`h-3.5 w-3.5 mr-1.5 ${
+                  filters.level.includes("D")
+                    ? "text-green-600"
+                    : "text-gray-400"
+                }`}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                {filters.level.includes("D") ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 6h12v12H6z"
+                  />
+                )}
+              </svg>
+              <span className="text-xs font-medium">Debug (D)</span>
+            </button>
+
+            {/* Info Checkbox */}
+            <button
+              type="button"
+              onClick={() => handleLevelChange("I")}
+              className={`flex items-center px-2 py-1 rounded cursor-pointer border focus:outline-none focus:ring-1 focus:ring-blue-500 ${
+                filters.level.includes("I")
+                  ? "bg-blue-100 border-blue-300 text-blue-800"
+                  : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              <svg
+                className={`h-3.5 w-3.5 mr-1.5 ${
+                  filters.level.includes("I")
+                    ? "text-blue-600"
+                    : "text-gray-400"
+                }`}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                {filters.level.includes("I") ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 6h12v12H6z"
+                  />
+                )}
+              </svg>
+              <span className="text-xs font-medium">Info (I)</span>
+            </button>
+
+            {/* Warning Checkbox */}
+            <button
+              type="button"
+              onClick={() => handleLevelChange("W")}
+              className={`flex items-center px-2 py-1 rounded cursor-pointer border focus:outline-none focus:ring-1 focus:ring-yellow-500 ${
+                filters.level.includes("W")
+                  ? "bg-yellow-100 border-yellow-300 text-yellow-800"
+                  : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              <svg
+                className={`h-3.5 w-3.5 mr-1.5 ${
+                  filters.level.includes("W")
+                    ? "text-yellow-600"
+                    : "text-gray-400"
+                }`}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                {filters.level.includes("W") ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 6h12v12H6z"
+                  />
+                )}
+              </svg>
+              <span className="text-xs font-medium">Warning (W)</span>
+            </button>
+
+            {/* Error Checkbox */}
+            <button
+              type="button"
+              onClick={() => handleLevelChange("E")}
+              className={`flex items-center px-2 py-1 rounded cursor-pointer border focus:outline-none focus:ring-1 focus:ring-red-500 ${
+                filters.level.includes("E")
+                  ? "bg-red-100 border-red-300 text-red-800"
+                  : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              <svg
+                className={`h-3.5 w-3.5 mr-1.5 ${
+                  filters.level.includes("E") ? "text-red-600" : "text-gray-400"
+                }`}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                {filters.level.includes("E") ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 6h12v12H6z"
+                  />
+                )}
+              </svg>
+              <span className="text-xs font-medium">Error (E)</span>
+            </button>
+          </div>
         </div>
 
         {/* Tag Filter */}
@@ -194,9 +342,9 @@ const SearchFilter = ({ filters, setFilters }) => {
             </svg>
             <div>
               <span className="font-medium">Active filters:</span>{" "}
-              {filters.level && (
+              {filters.level.length > 0 && (
                 <span className="inline-block bg-blue-100 text-blue-800 px-2 py-0.5 rounded mr-2 text-xs">
-                  Level: {filters.level}
+                  Levels: {filters.level.join(", ")}
                 </span>
               )}
               {filters.tag && (
