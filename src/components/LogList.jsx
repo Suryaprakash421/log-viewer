@@ -163,8 +163,8 @@ const LogList = ({ logs, sortOrder, setSortOrder }) => {
           className="max-h-[65vh] overflow-y-auto pr-2 rounded border border-gray-200 bg-gray-50"
         >
           <div className="p-3 space-y-1">
-            {displayedLogs.map((log) => (
-              <LogEntry key={log.id} log={log} />
+            {displayedLogs.map((log, index) => (
+              <LogEntry key={log.id} log={log} serialNumber={index + 1} />
             ))}
 
             {/* Loader element for infinite scrolling */}

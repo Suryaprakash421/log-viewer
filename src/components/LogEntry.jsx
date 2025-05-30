@@ -1,6 +1,6 @@
 import React from "react";
 
-const LogEntry = ({ log }) => {
+const LogEntry = ({ log, serialNumber }) => {
   // Determine background color based on log level
   const getBgColor = () => {
     switch (log.level) {
@@ -72,6 +72,23 @@ const LogEntry = ({ log }) => {
       className={`p-3 border rounded mb-2 transition-all duration-150 hover:shadow-sm ${getBgColor()}`}
     >
       <div className="flex flex-wrap items-start gap-2 mb-2">
+        {/* Serial Number */}
+        <div className="inline-flex items-center text-xs font-bold text-gray-700 bg-gray-200 px-2 py-1 rounded-md border border-gray-300">
+          <svg
+            className="h-3 w-3 mr-1 text-gray-500"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"
+            />
+          </svg>
+          {serialNumber}
+        </div>
         <div className="inline-flex items-center text-xs font-mono text-gray-600 bg-gray-100 px-2 py-1 rounded-md">
           <svg
             className="h-3 w-3 mr-1 text-gray-400"
