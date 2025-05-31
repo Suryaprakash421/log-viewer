@@ -12,9 +12,11 @@ export const parseLogFile = (content) => {
     try {
       // Format from screenshot: "2025-05-15 11:21:57 am D AlbumContactCheck contactNumber: +919514557625 - namedFacesData: []"
 
-      // Match timestamp (date and time with am/pm)
+      // Match timestamp - support both formats:
+      // Format 1: "2025-05-27 09:50:59 am" (with am/pm)
+      // Format 2: "2023-05-18 14:30:45.123" (24-hour with milliseconds)
       const timestampMatch = line.match(
-        /^(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\s+(?:am|pm))/
+        /^(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}(?:\.\d{3})?(?:\s+(?:am|pm))?)/i
       );
       const timestamp = timestampMatch ? timestampMatch[1] : "";
 
@@ -28,6 +30,7 @@ export const parseLogFile = (content) => {
         // If the line doesn't match the expected format, return a basic structure
         return {
           id: index,
+          serialNumber: index + 1,
           timestamp: timestamp || "",
           level: "",
           tag: "",
@@ -49,6 +52,7 @@ export const parseLogFile = (content) => {
       if (!tagMessageMatch) {
         return {
           id: index,
+          serialNumber: index + 1,
           timestamp,
           level,
           tag: remainingLine, // If no space, the whole thing is the tag
@@ -62,6 +66,7 @@ export const parseLogFile = (content) => {
 
       return {
         id: index,
+        serialNumber: index + 1,
         timestamp,
         level,
         tag,
@@ -73,6 +78,7 @@ export const parseLogFile = (content) => {
       // If parsing fails, return a basic structure
       return {
         id: index,
+        serialNumber: index + 1,
         timestamp: "",
         level: "E",
         tag: "ParseError",
@@ -140,12 +146,43 @@ export const filterLogs = (logs, filters, sortOrder = "desc") => {
       // Sort by timestamp based on sortOrder
       if (!a.timestamp || !b.timestamp) return 0;
 
+      // Helper function to parse timestamps in both formats
+      const parseTimestamp = (timestamp) => {
+        // Normalize timestamp for consistent parsing
+        let normalizedTimestamp = timestamp.trim();
+
+        // Handle am/pm format: "2025-05-27 09:50:59 am" -> convert to standard format
+        if (
+          normalizedTimestamp.includes("am") ||
+          normalizedTimestamp.includes("pm")
+        ) {
+          // JavaScript Date can handle this format directly
+          return new Date(normalizedTimestamp).getTime();
+        } else {
+          // Handle 24-hour format with milliseconds: "2023-05-18 14:30:45.123"
+          // JavaScript Date can handle this format directly too
+          return new Date(normalizedTimestamp).getTime();
+        }
+      };
+
+      const timeA = parseTimestamp(a.timestamp);
+      const timeB = parseTimestamp(b.timestamp);
+
+      // Handle invalid timestamps by falling back to serial number
+      if (isNaN(timeA) || isNaN(timeB)) {
+        if (sortOrder === "asc") {
+          return a.serialNumber - b.serialNumber;
+        } else {
+          return b.serialNumber - a.serialNumber;
+        }
+      }
+
       if (sortOrder === "asc") {
         // Ascending order (oldest first)
-        return new Date(a.timestamp) - new Date(b.timestamp);
+        return timeA - timeB;
       } else {
         // Descending order (newest first)
-        return new Date(b.timestamp) - new Date(a.timestamp);
+        return timeB - timeA;
       }
     });
 };
